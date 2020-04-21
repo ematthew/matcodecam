@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class profile extends Model
 {
-	 protected $guarded =[];
+	 // protected $guarded =[];
 
 
 // public function profileImage()
@@ -14,7 +14,10 @@ class profile extends Model
 // 	return '/storage/'.($this-image) ? $this-image:'http://127.0.0.1:8000/storage/upload/gFpnFq9DnQmAmrzVeILBOvwbnuSZUDiA3IYZ0v5X.png';
 // }
 
-
+   public function followers()
+   {
+   	return $this->belongsTo(User::class);
+   }
 
     public function user()
     {

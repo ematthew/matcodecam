@@ -3,16 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\User;
 use Intervention\Image\Facades\Image;
-
+use Auth;
 
 class PostsController extends Controller
 {
      public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
 
-        $this->middleware('log')->only('index');
+        // $this->middleware('log')->only('index');
+    }
+
+    public function index()
+    {
+        // echo "string";
+      if (Auth::user()) {
+        # code...
+        $users = auth()->user()->following()->pluck('profile_user.user_id');
+      }else{
+        $users = User::all()->pluck('id');
+      }
+      $posts = Post::whereIn('user_id', $users)->orderBy('created_at', 'DESC')->paginate(3);
+      
+      return view('posts.index', compact('posts'));
     }
 
     public function create()

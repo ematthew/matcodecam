@@ -11,7 +11,8 @@
             <div class="d-flex justify-content-between align-items-baseline">
             <div class="d-flex align-items-center pb-3">
                <div class="h4"> {{$user->username}}</div>
-               <button class="btn btn-primary ml-4 "> follow</button>
+
+               <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
             </div>
 
                 
@@ -27,8 +28,8 @@
             @endif
            <div class="d-flex">
             <div class="pr-3"><strong>{{$user->posts->count()}}</strong> posts</div>
-            <div class="pr-3"> <strong>23k</strong> followers</div>
-            <div class="pr-3"><strong>212</strong> following</div>
+            <div class="pr-3"> <strong>{{$user->followers->count()}}</strong> followers</div>
+            <div class="pr-3"><strong>{{$user->following->count()}}</strong> following</div>
            </div>
            <div class="pt-4 font-weight-bold">{{$user->profile->title ?? "no title"}}</div>
            <div>{{$user->profile->description ?? "no description"}}</div>

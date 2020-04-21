@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
-use App\Profile;
+use App\profile;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -10,10 +10,19 @@ use Intervention\Image\Facades\Image;
 
 class profilesController extends Controller
 {
+    public function __construct(){
+        return $this->middleware('auth');
+    }
+
     public function index(User $user)
     {
-     // $user = User::findOrfail($user);
-        return view('profiles.index',compact('user'));
+        // $user = User::where('id', $id)->with('profile')->first();
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+        
+        // return $user;
+        return view('profiles.index',compact('user', 'follows'));
+
+
     }
 
     public function edit(User $user)
